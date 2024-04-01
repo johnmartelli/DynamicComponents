@@ -1,0 +1,39 @@
+{
+    "count": "8016",
+    "data": [
+        {
+            "Absences_RuleID": null,
+            "Absences_StatusID": 147422248,
+            "Absences_StartDate": "2024-09-02T00:00:00Z",
+            "Absences_EndDate": "2024-09-06T00:00:00Z",
+            "Absences_Types": "Ferie pianificate",
+            "Absences_Status": "Accettata",
+            "Employees_SurnameAndName": "John Martelli",
+            "Employees_PhotoAttachment_ContentType": "image\\/jpeg",
+            "Employees_PhotoAttachment": "/documents/preview/22317433?x=50&y=50",
+            "id": 227571640,
+            "status": {
+                "statusID": 147422248,
+                "statusName": "Accettata",
+                "statusType": 3
+            }
+        },
+        {
+            "Absences_RuleID": null,
+            "Absences_StatusID": 147422248,
+            "Absences_StartDate": "2024-09-02T00:00:00Z",
+            "Absences_EndDate": "2024-09-06T00:00:00Z",
+            "Absences_Types": "Ferie pianificate",
+            "Absences_Status": "Accettata",
+            "Employees_SurnameAndName": "John Martelli",
+            "Employees_PhotoAttachment_ContentType": "image\\/jpeg",
+            "Employees_PhotoAttachment": "/documents/preview/22317433?x=50&y=50",
+            "id": 227571640,
+            "status": {
+                "statusID": 147422248,
+                "statusName": "Accettata",
+                "statusType": 3
+            }
+        }
+    ]
+}
