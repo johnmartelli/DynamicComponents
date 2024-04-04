@@ -2,21 +2,52 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite App 2</title>
-  <script type="module" crossorigin src="/dist/assets/index-C_uy1Vys.js"></script>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" crossorigin src="./assets/index-D_xq6ZFD.js"></script>
+	<link rel="stylesheet" href="./assets/index-eqnDjHBZ.css">
+	<title>Vite App 2</title>
 </head>
 
 <body>
-  <table>
-    <tr>
-      <td am-calendar="app1" amprop-height="400px" amprop-selected-date="1995-01-01"></td>
-      <td am-chart="app2" amprop-height="200px" amprop-title="Yo, bro..."></td>
-      <td am-chart="app3" amprop-height="200px" amprop-title="Yo, bro, another chart">ciao</td>
-    </tr>
-  </table>
+<div>
+	<h2>Autocomplete</h2>
+	<div
+		am-autocomplete="autocompleted"
+		am-accept="application/pdf"
+		amprop-api-url="https://mocki.io/v1/ef99a288-e161-45f7-aeae-4c7e26db9477"
+		amprop-inpit-id="autocompleteHidden"
+		amprop-inpit-name="ACH"
+		amprop-initial-value='18636,18559,18558'
+	></div>
+</div>
+<div>
+	<h2>Multiple file upload</h2>
+	<div
+		am-multiple-file-upload="multiple-file-upload"
+		am-accept="application/pdf"
+		amprop-api-url="https://platform.dev.altamiraweb.com"
+		amprop-additional-request-params='{"a":1, "b":2}'
+		amprop-additional-request-headers='{"custom-header": "header-data-1"}'
+		amprop-tag-name="fileExample"
+	></div>
+</div>
+<div>
+	<h2>Training plans data table</h2>
+	<div
+		am-data-table="data-table-training-plans"
+		amprop-api-url="https://platform.dev.altamiraweb.com/api/v3/REST/views/TrainingPlans/List_training_plans"
+		amprop-selection-mode="multiple"
+	></div>
+</div>
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <td am-calendar="app1" amprop-height="400px" amprop-selected-date="1995-01-01"></td>-->
+<!--      <td am-chart="app2" amprop-height="200px" amprop-title="Yo, bro..."></td>-->
+<!--      <td am-chart="app3" amprop-height="200px" amprop-title="Yo, bro, another chart">ciao</td>-->
+<!--    </tr>-->
+<!--  </table>-->
 </body>
 
 </html>
