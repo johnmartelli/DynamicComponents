@@ -4,15 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@syncfusion/ej2-vue-charts": "^25.1.37",
     "@syncfusion/ej2-vue-schedule": "^25.1.37",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
+    "js-cookie": "^3.0.5",
     "mkcert": "^3.2.0",
+    "primeicons": "^7.0.0",
     "primevue": "^3.50.0",
+    "sass": "^1.74.1",
     "vue": "^3.4.21"
   },
   "devDependencies": {
