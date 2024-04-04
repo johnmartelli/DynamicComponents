@@ -20,14 +20,14 @@ export default defineConfig({
       key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
       cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')),
     },
-    proxy: {
-      // Proxying API requests
-      '/api': {
-        target: 'https://platform.altamirahrm.com', // The backend server you're proxying to
-        changeOrigin: true, // Needed for virtual hosted sites
-        //rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite the path; remove /api
-      },
-      // You can add other proxies here if needed
-    },
+    // proxy: {
+    //   // Proxying API requests
+    //   '/api': {
+    //     target: 'https://platform.altamirahrm.com', // The backend server you're proxying to
+    //     changeOrigin: true, // Needed for virtual hosted sites
+    //     //rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite the path; remove /api
+    //   },
+    //   // You can add other proxies here if needed
+    // },
   }
 })
