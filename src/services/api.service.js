@@ -60,43 +60,9 @@ class Api {
         return this.instance.put(apiUrl, { data }, { headers });
     }
 
-    // get(url, data) {
-    //     return this.instance.get(url, { params: data });
-    // }
-    //
-    // post(url: string, data?: any, config?: object): any {
-    //     return this.instance({
-    //         method: 'post',
-    //         url: url,
-    //         data,
-    //         ...config
-    //     });
-    // }
-    //
-    // put(url: string, data?: any): any {
-    //     return this.instance({
-    //         method: 'put',
-    //         url: url,
-    //         data
-    //     });
-    // }
-    //
-    // patch(url: string, data?: any): any {
-    //     return this.instance({
-    //         method: 'patch',
-    //         url: url,
-    //         data
-    //     });
-    // }
-    //
-    // delete(url: string, data?: any, config?: object): any {
-    //     return this.instance({
-    //         method: 'delete',
-    //         url: url,
-    //         data,
-    //         ...config
-    //     });
-    // }
+    post(apiUrl, data = [], headers = {}) {
+        return this.instance.post(apiUrl, { data }, { headers });
+    }
 }
 
 const api = new Api(API_CONFIG);
