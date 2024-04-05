@@ -193,7 +193,8 @@ const props = defineProps({
         default: ''
     },
     /**
-     * JSON format string
+     * Define request method
+     * available methods: put, post
      */
     uploadRequestMethod: {
         type: String,
