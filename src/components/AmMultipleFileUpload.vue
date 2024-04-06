@@ -192,6 +192,15 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    /**
+     * Define request method
+     * available methods: put, post
+     */
+    uploadRequestMethod: {
+        type: String,
+        validator: value => ['put', 'post'].includes(value),
+        default: 'post'
+    },
     tagName: {
         type: String,
         default: 'file'
@@ -248,7 +257,7 @@ async function apiUploadFile(file) {
             ...preparedAdditionalRequestParams.value
         }];
 
-        return api.put(props.apiUrl, data, preparedAdditionalRequestHeaders.value);
+        return api[props.uploadRequestMethod](props.apiUrl, data, preparedAdditionalRequestHeaders.value);
     } catch (error) {
         return error;
     }
