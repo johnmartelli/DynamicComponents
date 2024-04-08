@@ -34,7 +34,25 @@ class Api {
     onRejected = async (error) => {
         if (import.meta.env.MODE === 'development' && error.response.status === 403) {
             await authService.login();
+
+            const originalConfig = error.config;
+
+            if (!originalConfig._retry) {
+                // eslint-disable-next-line no-underscore-dangle
+                originalConfig._retry = true;
+
+                try {
+                    originalConfig.headers.token = CookiesService.getToken();
+                    return this.instance.request(originalConfig);
+                } catch (retryError) {
+                    console.log('retry request error: ', retryError);
+                }
+            }
+
+            return Promise.reject(error.response?.data?.error);
         }
+
+
 
         return Promise.reject(error.response);
     }
