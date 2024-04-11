@@ -7,9 +7,13 @@ class AuthService {
 	 */
 	async login() {
 		try {
+			// dev ENV
 			const apiUrlGetToken = 'https://platform.dev.altamiraweb.com/api/v3/REST/authentication/getToken';
+			// next ENV
+			// const apiUrlGetToken = 'https://platform.next.altamiraweb.com/api/v3/REST/authentication/getToken';
 			const headers = {
-				Username: 'testdevf@yopmail.com',
+				// Username: 'testdevf@yopmail.com',
+				Username: 'mar1m@yopmail.com',
 				Password: 'ciao',
 				LoginRequest: '1',
 				structure: 'false'

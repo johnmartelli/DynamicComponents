@@ -201,9 +201,21 @@ const props = defineProps({
         validator: value => ['put', 'post'].includes(value),
         default: 'post'
     },
-    tagName: {
+    /**
+     * Define request param for attached file property
+     * [fileTag]: base64
+     */
+    fileTag: {
         type: String,
         default: 'file'
+    },
+    /**
+     * Define request param for attached file name property
+     * [fileNameTag]: file-name-example.pdf
+     */
+    fileNameTag: {
+        type: String,
+        default: 'fileName'
     }
 });
 
@@ -253,7 +265,8 @@ async function apiUploadFile(file) {
     try {
         const base64 = await convertFileToToBase64(file);
         const data = [{
-            [props.tagName]: base64,
+            [props.fileTag]: base64,
+            [props.fileNameTag]: file.name,
             ...preparedAdditionalRequestParams.value
         }];
 

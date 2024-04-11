@@ -2,50 +2,36 @@
     <ejs-schedule
         :width="scheduleWidth"
         :height="scheduleHeight"
-        :selectedDate='selectedDate'
-        :eventSettings='eventSettings'
+        :selectedDate="selectedDate"
+        :eventSettings="eventSettings"
+        :timezone="timezone"
         :at-am-schedule="atAttribute"
         class="am-schedule"
     >
         <e-views>
-            <e-view option='Day'></e-view>
-            <e-view option='Week'></e-view>
-            <e-view option='WorkWeek'></e-view>
-            <e-view option='Month'></e-view>
-            <e-view option='Agenda'></e-view>
+            <e-view option="Day"></e-view>
+            <e-view option="Week"></e-view>
+            <e-view option="Month"></e-view>
+            <e-view option="Agenda"></e-view>
         </e-views>
-        <e-resources>
-            <e-resource
-                field="OwnerId"
-                title="Owner"
-                name="Owners"
-                :dataSource="ownerDataSource"
-                textField="OwnerText"
-                idField="Id"
-                colorField="OwnerColor"
-            />
-        </e-resources>
     </ejs-schedule>
 </template>
 
 <script setup>
-import { provide, ref } from 'vue';
+import { provide, reactive, ref, toRefs } from 'vue';
 import {
     Day,
     Week,
     Month,
     Agenda,
-    WorkWeek,
     ViewDirective as EView,
     ViewsDirective as EViews,
-    ResourceDirective as EResource,
-    ScheduleComponent as EjsSchedule,
-    ResourcesDirective as EResources
-} from "@syncfusion/ej2-vue-schedule";
+    ScheduleComponent as EjsSchedule
+} from '@syncfusion/ej2-vue-schedule';
+import { DataManager, CustomDataAdaptor } from '@syncfusion/ej2-data';
 import { api } from '@/services/api.service.js';
-import { initialFetchData } from '@/helpers/initialFetchData.helper.js';
 
-provide('schedule', [Day, Week, WorkWeek, Month, Agenda]);
+provide('schedule', [Day, Week, Month, Agenda]);
 
 defineOptions({
     name: 'AmSchedule',
@@ -78,44 +64,48 @@ const props = defineProps({
     }
 });
 
-const selectedDate = new Date(2023, 7, 8);
-const eventSettings = {
-    dataSource: [
-        {
-            Id: 1,
-            Subject: 'Surgery - Andrew',
-            EventType: 'Confirmed',
-            StartTime: new Date(2023, 7, 10, 9, 0),
-            EndTime: new Date(2023, 7, 10, 10, 0),
-            OwnerId: 2
-        },
-        {
-            Id: 2,
-            Subject: 'Consulting - John',
-            EventType: 'Confirmed',
-            StartTime: new Date(2023, 7, 9, 10, 0),
-            EndTime: new Date(2023, 7, 9, 11, 30),
-            OwnerId: 3
-        },
-        {
-            Id: 3,
-            Subject: 'Therapy - Robert',
-            EventType: 'Requested',
-            StartTime: new Date(2023, 7, 8, 11, 30),
-            EndTime: new Date(2023, 7, 8, 12, 30),
-            OwnerId: 1
-        }
-    ]
-};
-const ownerDataSource = [
-    { OwnerText: "Nancy", Id: 1, OwnerColor: "#ffaa00" },
-    { OwnerText: "Steven", Id: 2, OwnerColor: "#f8a398" },
-    { OwnerText: "Michael", Id: 3, OwnerColor: "#7499e1" }
-];
+const currentView = ref('Week');
+const timezone = ref('UTC');
+
+const isInitialRequest = ref(true);
+
+const customDataAdaptor = new CustomDataAdaptor({
+    getData: fetchScheduleData,
+    addRecord: () => {
+        console.log('addRecord');
+    },
+    updateRecord: () => {
+        console.log('updateRecord');
+    },
+    deleteRecord: () => {
+        console.log('deleteRecord');
+    },
+    batchUpdate: (...args) => {
+        console.log('batchUpdate', args);
+    }
+});
+
+const dataManager = new DataManager({
+    url: props.apiUrl,
+    adaptor: customDataAdaptor,
+    crossDomain: true
+});
+
+const eventSettings = reactive({
+    dataSource: dataManager,
+    fields: {
+        id: 'id',
+        subject: { name: 'Employees_SurnameAndName' },
+        description: { name: 'Absences_Types' },
+        startTime: { name: 'Absences_StartDate' },
+        endTime: { name: 'Absences_EndDate' },
+    }
+});
 
 const isFetchScheduleDataLoading = ref(false);
 
-async function fetchScheduleData() {
+async function fetchScheduleData(option) {
+    console.log('fetchScheduleData option: ', option);
     isFetchScheduleDataLoading.value = true;
 
     try {
@@ -127,15 +117,25 @@ async function fetchScheduleData() {
 
         const { data = [], view = {}, count = 0 } = response;
 
-        return Promise.resolve(response);
+        if (isInitialRequest.value) {
+            const [startDateConfig, endDateConfig, contentConfig] = view?.tabs?.[0]?.titles || [];
+            eventSettings.fields.startTime = { name: startDateConfig?.fields?.[0]?.tagName };
+            eventSettings.fields.endTime = { name: endDateConfig?.fields?.[0]?.tagName };
+            console.log('startDateConfig: ', startDateConfig);
+            console.log('endDateConfig: ', endDateConfig);
+            console.log('contentConfig: ', contentConfig);
+        }
+
+        return option.onSuccess(data, {});
     } catch (error) {
         return Promise.reject(error);
     } finally {
+        // if (isInitialRequest.value) {
+        //     isInitialRequest.value = false;
+        // }
         isFetchScheduleDataLoading.value = false;
     }
 }
-
-initialFetchData(fetchScheduleData);
 </script>
 
 <style>
